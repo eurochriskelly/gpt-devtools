@@ -31,16 +31,22 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const chain = prompt.pipe(chatModel);
     const dir = (0, path_1.resolve)(ARGS['directory']);
     console.log(`Checking styles in directory [${dir}]`);
-    (0, fs_1.readdirSync)(dir).forEach((f) => __awaiter(void 0, void 0, void 0, function* () {
-        if (f.endsWith('.org')) {
-            console.log(`Checking style of document [${f}]`);
-            const response = yield chain.invoke({
-                guide: (0, fs_1.readFileSync)(ARGS['style-guide']),
-                documentName: f,
-                contents: (0, fs_1.readFileSync)((0, path_1.resolve)(dir, f)),
-            });
-            console.log(response.content);
-        }
+    (0, fs_1.readdirSync)(dir)
+        .filter(x => !x.includes('#'))
+        .filter(x => x.endsWith('.org'))
+        .forEach((f) => __awaiter(void 0, void 0, void 0, function* () {
+        const contents = (0, fs_1.readFileSync)((0, path_1.resolve)(dir, f)).toString();
+        console.log(`Checking style of document [${f}]`);
+        const guide = (0, fs_1.readFileSync)(ARGS['style-guide']).toString();
+        const response = yield chain.invoke({
+            content: `<info>
+  <style_guide>${guide}</style_guide>
+  <document_name>${f}</document_name>
+  <document>${contents}</document>
+</info>`
+        });
+        console.log('-----------');
+        console.log(response.content);
     }));
 });
 const processArgs = () => {
