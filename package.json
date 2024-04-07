@@ -1,0 +1,28 @@
+{
+  "name": "gpt-tools",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@langchain/community": "^0.0.44",
+    "@langchain/core": "^0.1.54",
+    "@langchain/openai": "^0.0.26",
+    "langchain": "^0.1.31"
+  },
+  "pnpm": {
+    "overrides": {
+      "@langchain/core": "0.1.5"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "checkStyle": "bash scripts/check-style.sh",
+    "test": "tsc;node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.4",
+    "typescript": "^5.4.4"
+  }
+}
