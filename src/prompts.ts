@@ -3,7 +3,7 @@ export const systemPrompt = `You are a technical writer tasked with ensuring doc
 <info>
   <style_guide>@CONTENTS_OF_STYLE_GUIDE@</style_guide>
   <document_name>@DOC_NAME@</document_name>
-  <document>@CONTENTS@</document>
+  <document>@CONTENTS_OF_THE_DOCUMENT@</document>
 </info>
 
 Output reports for each document checked as markdown using the following template:
@@ -28,8 +28,4 @@ Output reports for each document checked as markdown using the following templat
 
 `
 
-export const userPrompt = `<info>
-  <style_guide>{guide}</style_guide>
-  <document_name>{documentName}</document_name>
-  <document>{contents}</document>
-</info>`
+export const userPrompt = `{content}`

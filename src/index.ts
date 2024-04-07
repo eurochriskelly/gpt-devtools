@@ -25,17 +25,23 @@ const main = async (): Promise<void> => {
   const chain = prompt.pipe(chatModel)
   const dir: PathLike = resolve(ARGS['directory']);
   console.log(`Checking styles in directory [${dir}]`);
-  readdirSync(dir).forEach(async f => {
-    if (f.endsWith('.org')) {
+  readdirSync(dir)
+    .filter(x => !x.includes('#'))
+    .filter(x => x.endsWith('.org'))
+    .forEach(async f => {
+      const contents = readFileSync(resolve(dir, f)).toString();
       console.log(`Checking style of document [${f}]`);
+      const guide = readFileSync(ARGS['style-guide']).toString()
       const response: any = await chain.invoke({
-        guide: readFileSync(ARGS['style-guide']),
-        documentName: f,
-        contents: readFileSync(resolve(dir, f)),
+        content:`<info>
+  <style_guide>${guide}</style_guide>
+  <document_name>${f}</document_name>
+  <document>${contents}</document>
+</info>` 
       })
+      console.log('-----------')
       console.log(response.content);
-    }
-  })
+    })
 };
 
 const processArgs = () => {
