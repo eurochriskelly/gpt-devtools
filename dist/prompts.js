@@ -11,23 +11,27 @@ exports.systemPrompt = `You are a technical writer tasked with ensuring document
 
 Output reports for each document checked as markdown using the following template:
 
-# DOC: @DOC_NAME@ 
+    ---
+    # DOC: @DOC_NAME@ 
 
-## STYLE VIOLATIONS
+    ## STYLE VIOLATIONS
 
-(list any violations clearly)
+    (list any violations clearly)
 
-- Bullet 1, etc.
+    - Bullet 1, etc.
 
-## SUGGESTED DRILL IMPROVEMENTS
+    ## SUGGESTED DRILL IMPROVEMENTS
 
-(If sections are missing, incomplete or unclear, make suggestions here. For example, if a section is left blank. Some ideas scould be proposed)
+    (If sections are missing, incomplete or unclear, make suggestions here. For example, if a section is left blank. Some ideas scould be proposed)
 
-## RECOMMENDED STYLE GUIDE CHANGES
+    ## RECOMMENDED STYLE GUIDE CHANGES
 
-(Finally, the style guide itself may be subject to continuous improvements)
+    (Finally, the style guide itself may be subject to continuous improvements)
 
-- Bullet 1, etc.
+    - Bullet 1, etc.
+    ---
+
+If a section is quite good, don't add a section for suggestions, violations etc. We don't need to improve the document ad-infinitum
 
 `;
 exports.userPrompt = `{content}`;
